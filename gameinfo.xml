@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<gamelist>
+	<game>
+		<path>./Oceanhorn.sh</path>
+		<name>Oceanhorn</name>
+		<desc>Oceanhorn: Monster of Uncharted Seas combines captivating storytelling, breathtaking 3D visuals and exciting gameplay into one epic action-adventure experience. In the game you explore the islands of Uncharted Seas, a world filled with many dangers, puzzles and secrets.</desc>
+		<image>./oceanhorn/cover.png</image>
+		<releasedate>20150317</releasedate>
+		<developer>Cornfox & Brothers Ltd.</developer>
+		<genre>Action, Adventure, Indie, RPG</genre>
+	</game>
+</gamelist>
