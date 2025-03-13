@@ -13,7 +13,7 @@ source $controlfolder/control.txt
 get_controls
 
 # Variables
-GAMEDIR=/$directory/ports/oceanhorn
+GAMEDIR="/$directory/windows/oceanhorn"
 
 # CD and set permissions
 cd $GAMEDIR
