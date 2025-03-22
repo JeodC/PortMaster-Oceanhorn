@@ -14,30 +14,32 @@ get_controls
 
 # Variables
 GAMEDIR="/$directory/windows/oceanhorn"
+EXEC="Oceanhorn.exe"
 
-# CD and set permissions
+# CD and set log
 cd $GAMEDIR
 > "$GAMEDIR/log.txt" && exec > >(tee "$GAMEDIR/log.txt") 2>&1
-$ESUDO chmod +x -R $GAMEDIR/*
 
 # Display loading splash
-[ "$CFW_NAME" == "muOS" ] && $ESUDO $GAMEDIR/splash "splash.png" 1
 $ESUDO $GAMEDIR/splash "splash.png" 30000 & 
 
 # Exports
 export SDL_GAMECONTROLLERCONFIG="$sdl_controllerconfig"
-export WINEPREFIX=~/.wine64
 export WINEDEBUG=-all
 
-# Install dependencies
-if ! winetricks list-installed | grep -q "^dxvk$"; then
-    pm_message "Installing dependencies."
-    winetricks dxvk
+# Determine architecture
+if file "$GAMEDIR/data/$EXEC" | grep -q "PE32" && ! file "$GAMEDIR/data/$EXEC" | grep -q "PE32+"; then
+    export WINEARCH=win32
+    export WINEPREFIX=~/.wine32
+elif file "$GAMEDIR/data/$EXEC" | grep -q "PE32+"; then
+    export WINEPREFIX=~/.wine64
+else
+    echo "Unknown file format"
 fi
 
 # Run the game
-$GPTOKEYB "Oceanhorn.exe" -c "./oceanhorn.gptk" &
-box64 wine64 "./data/Oceanhorn.exe"
+$GPTOKEYB "$EXEC" -c "$GAMEDIR/oceanhorn.gptk" &
+box64 wine "$GAMEDIR/data/$EXEC"
 
 # Kill processes
 wineserver -k
